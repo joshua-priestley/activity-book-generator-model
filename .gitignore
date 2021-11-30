@@ -1,0 +1,15 @@
+venv/
+
+**/*.pyc
+**/__pycache__/
+
+.pytest_cache/
+.coverage
+
+**/.DS_Store
+
+tags
+tags.lock
+tags.temp
+
+gensim-data/
