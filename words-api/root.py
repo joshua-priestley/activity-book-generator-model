@@ -8,13 +8,12 @@ from flask import Blueprint, jsonify, request
 ALPHABETIC = re.compile(r"[a-zA-Z]+")
 
 model = gensim.downloader.load('word2vec-google-news-300')
-# model = None
 
 themes = {
   "christmas" : ["santa", "christmas tree", "reindeer", "present", "elf", "snowman", "bauble", "stocking", "christmas pudding", "turkey", "angel", "jesus", "evergreen", "sleigh"],
   "animals" : ["cow", "donkey", "horse", "rabbit", "tortoise", "sheep", "hippopotamus", "tiger", "dog", "snake", "aardvark", "cheetah", "meerkat", "monkey", "zebra", "cat", "lion", "chicken", "lizard"],
   "plants" : ["roses", "trees", "flowers", "blossom", "acorn", "agriculture", "leaf", "juniper", "moss", "forest", "wood", "pollen", "photosynthesis", "petal", "jungle", "fern", "flora"],
-  "cities" : ["london", "new york", "chicago", "los angeles", "edinburgh", "hong kong", "tokyo", "singapore", "amsterdam", "berlin", "singapore", "sydney", "melbourne", "bangkok", "dubai", "milan", "toronto", "budapest", "shanghai"]
+  "cities" : ["London", "New York", "Chicago", "Los Angeles", "Edinburgh", "Hong Kong", "Tokyo", "Singapore", "Amsterdam", "Berlin", "Sydney", "Melbourne", "Bangkok", "Dubai", "Milan", "Toronto", "Budapest", "Shanghai", "Bucharest"]
 }
 
 # This is to select how many words we get out of the model, in terms of the count variable
@@ -36,7 +35,7 @@ def query_model(theme: str, count: int):
     # And filter out the ones which are too similar
     ans = list(filter((lambda w: filter_func(w, theme)), ans))
     
-    # Calculate how many words we still have to get and divide them equally
+    # Calculate how many words we still have to get and take a random sample from all the results
     n = len(ans)
     diff = n - count
     if diff > 0:
