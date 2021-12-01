@@ -9,13 +9,6 @@ ALPHABETIC = re.compile(r"[a-zA-Z]+")
 
 model = gensim.downloader.load('word2vec-google-news-300')
 
-themes = {
-  "christmas" : ["santa", "christmas tree", "reindeer", "present", "elf", "snowman", "bauble", "stocking", "christmas pudding", "turkey", "angel", "jesus", "evergreen", "sleigh"],
-  "animals" : ["cow", "donkey", "horse", "rabbit", "tortoise", "sheep", "hippopotamus", "tiger", "dog", "snake", "aardvark", "cheetah", "meerkat", "monkey", "zebra", "cat", "lion", "chicken", "lizard"],
-  "plants" : ["roses", "trees", "flowers", "blossom", "acorn", "agriculture", "leaf", "juniper", "moss", "forest", "wood", "pollen", "photosynthesis", "petal", "jungle", "fern", "flora"],
-  "cities" : ["London", "New York", "Chicago", "Los Angeles", "Edinburgh", "Hong Kong", "Tokyo", "Singapore", "Amsterdam", "Berlin", "Sydney", "Melbourne", "Bangkok", "Dubai", "Milan", "Toronto", "Budapest", "Shanghai", "Bucharest"]
-}
-
 # This is to select how many words we get out of the model, in terms of the count variable
 # The number of words is gonna be TIMES_MORE_WORDS * count, out of which we pick count final words
 TIMES_MORE_WORDS = 5
@@ -78,10 +71,7 @@ def pick_words(theme: str, count: int, allow_multiword=True, already_used=[]) ->
   If 'allow_multiword' is false, selections consisting of multiple words (e.g., space-separated or hyphen-separated) will not be included.
   """
 
-  if theme in themes:
-    word_bank = themes[theme]
-  else:
-    word_bank = try_formats(theme, TIMES_MORE_WORDS * count)
+  word_bank = try_formats(theme, TIMES_MORE_WORDS * count)
   
   # TODO: We are not guaranteed to have enough words after we do this, we have to pass
   # allow_multiword in the other functions as well
